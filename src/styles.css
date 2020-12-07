@@ -1,0 +1,128 @@
+body {
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+h2 {
+  font-size: 18px;
+}
+
+h4 {
+  color: rgb(84, 91, 98);
+  font-size: 15px;
+  font-weight: bolder;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+h5 {
+  color: rgb(84, 91, 98);
+  font-size: 14px;
+  font-weight: bolder;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.weather-app {
+  background-image: linear-gradient(to top, #8ca1b4c0 0%, #faccbe67 100%);
+  border: 1px solid rgb(90, 98, 117);
+  border-radius: 10px;
+  box-shadow: 3px 2px 12px 1px rgba(217, 208, 211, 0.5);
+  max-width: 700px;
+  margin: 70px auto;
+  padding: 30px 10px 10px 10px;
+}
+
+.header {
+  color: rgb(67, 101, 139);
+  padding-left: 30px;
+}
+
+.map-marker:hover {
+  color: rgb(156, 64, 64);
+}
+.general-weather-info {
+  margin: 0;
+}
+.primary-info {
+  padding-left: 80px;
+  padding-right: 0;
+}
+.secondary-info {
+  padding-left: 120px;
+  padding-right: 0;
+}
+.weather-icon {
+  display: block;
+  width: 95px;
+}
+.current-weather {
+  color: rgb(67, 101, 139);
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.daily-hourly-btn {
+  padding-left: 45px;
+}
+
+.daily-forecast {
+  padding: 10px 30px 0 30px;
+}
+
+.date {
+  color: rgb(84, 91, 98);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.degrees {
+  color: rgb(84, 91, 98);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+.forecast-icon {
+  display: block;
+  margin: 0 auto;
+  width: 50px;
+}
+.coded-by {
+  color: rgb(248, 209, 186);
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  bottom: -50px;
+  text-align: center;
+}
+.coded-by-name {
+  color: rgb(248, 209, 186);
+}
+#search-form {
+  padding: 0;
+  max-width: 55%;
+  min-width: 55%;
+}
+#search-btn {
+  max-width: 25%;
+}
+#map-marker {
+  padding: 0;
+}
+#description {
+  text-transform: capitalize;
+}
