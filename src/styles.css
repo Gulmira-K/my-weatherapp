@@ -40,7 +40,8 @@ h5 {
   border: 1px solid rgb(90, 98, 117);
   border-radius: 10px;
   box-shadow: 3px 2px 12px 1px rgba(217, 208, 211, 0.5);
-  max-width: 700px;
+  max-width: 650px;
+  min-width: 650px;
   margin: 70px auto;
   padding: 30px 10px 10px 10px;
 }
