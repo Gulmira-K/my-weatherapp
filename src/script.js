@@ -140,17 +140,4 @@ let dailyButton = document.querySelector("#daily-btn");
 dailyButton.addEventListener("click", changeToDaily);
 dates.forEach(addDate);
 
-// Change back gound image
-
-//let weatherConditon = document.querySelector("#condition");
-if (weatherConditon == "clouds") {
- // document.getElementById("back-ground").style.background = "url('media/clouds.jpg')" fixed;
-} else if (weatherConditon == "clear") {
-  //document.getElementById("back-ground").style.background = "url('media/clear.jpg')";
-} else if (weatherConditon == "rain") {
-  //document.getElementById("back-ground").style.background = "url('media/rain.jpg')";
-} else {
-  //document.getElementById("back-ground").style.background = "url('media/general.jpg')" "fixed" "no-repeat";
-}
-
 
