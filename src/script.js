@@ -84,7 +84,7 @@ function formatDate(date) {
   }
   
   let time = `${hour}:${minuts}`;
-  let formattedDate = `${currentDay}, ${currentMonth} ${currentDate}, ${time}`;
+  let formattedDate = `${currentDay} ${currentMonth} ${currentDate}, ${time}`;
     return formattedDate;
 }
 
