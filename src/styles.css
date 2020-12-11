@@ -65,10 +65,6 @@ h5 {
   padding-left: 120px;
   padding-right: 0;
 }
-.weather-icon {
-  display: block;
-  width: 95px;
-}
 .current-weather {
   color: rgb(67, 101, 139);
   list-style-type: none;
@@ -127,6 +123,11 @@ h5 {
 }
 #map-marker {
   padding: 0;
+}
+#icon {
+  display: block;
+  width: 95px;
+  margin-left: -15px;
 }
 #description {
   text-transform: capitalize;

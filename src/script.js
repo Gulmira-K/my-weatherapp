@@ -12,6 +12,22 @@ function displayWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed)  ;
   document.querySelector("#max-temp").innerHTML = Math.round(response.data.main.temp_max);
   document.querySelector("#min-temp").innerHTML = Math.round(response.data.main.temp_min);
+  if (response.data.weather[0].main === "Clear") {
+    document.querySelector("#icon").setAttribute("src", "media/sun.gif");
+  } else if (response.data.weather[0].main === "Drizzle" ||
+    response.data.weather[0].main === "Mist" || 
+    response.data.weather[0].main === "Smoke" ||
+    response.data.weather[0].main === "Haze") {
+    document.querySelector("#icon").setAttribute("src", "media/cloud.gif");
+  } else if (response.data.weather[0].main === "Clouds") {
+    document.querySelector("#icon").setAttribute("src", "media/sunCloud.gif");
+  } else if (response.data.weather[0].main === "Thunderstorm") {
+    document.querySelector("#icon").setAttribute("src", "media/thunder.png");
+  } else if (response.data.weather[0].main === "Rain") {
+    document.querySelector("#icon").setAttribute("src", "media/rain.gif");
+  } else if (response.data.weather[0].main === "Snow") {
+    document.querySelector("#icon").setAttribute("src", "media/snow.gif");
+  }
 }
 
 // Search for a city
