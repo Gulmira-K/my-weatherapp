@@ -36,15 +36,11 @@ function searchCity(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
 }
-
 function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
   searchCity(city);
 }
-
-let searchForm = document.querySelector("form");
-searchForm.addEventListener("submit", handleSubmit);
 
 // Geolocationn and weather conditions
 function defineLocation(position) {
@@ -59,8 +55,6 @@ function getPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(defineLocation);
 }
-let locationBtn = document.querySelector("#location-btn");
-locationBtn.addEventListener("click", getPosition);
 
 // Current Date
 function formatDate(date) {
@@ -104,10 +98,6 @@ function formatDate(date) {
     return formattedDate;
 }
 
-let currently = new Date();
-let h2 = document.querySelector("h2");
-h2.innerHTML = formatDate(currently);
-
 // Change to hourly forecast
 function removeDate(allDates) {
   allDates.innerHTML = null;
@@ -119,18 +109,15 @@ function changeToHourly() {
   let fourthHourlyForecast = document.querySelector("#day-four");
   let fifthHourlyForecast = document.querySelector("#day-five");
   let dates = document.querySelectorAll("p.date");
-
+  let dailyBtn = document.querySelector("#daily-btn");
+  dailyBtn.classList.remove("active", "focus");
   firstHourlyForecast.innerHTML = "17:00";
   secondHourlyForecast.innerHTML = "18:00";
   thirdHourlyForecast.innerHTML = "19:00";
   fourthHourlyForecast.innerHTML = "20:00";
   fifthHourlyForecast.innerHTML = "21:00";
-
   dates.forEach(removeDate);
 }
-
-let hourlyButton = document.querySelector("#hourly-btn");
-hourlyButton.addEventListener("click", changeToHourly);
 
 // Change to daily forecast
 function addDate(allDates) {
@@ -142,17 +129,24 @@ function changeToDaily() {
   let thirdDailyForecast = document.querySelector("#day-three");
   let fourthDailyForecast = document.querySelector("#day-four");
   let fifthDailyForecast = document.querySelector("#day-five");
- 
   firstDailyForecast.innerHTML = "Thursday";
   secondDailyForecast.innerHTML = "Friday";
   thirdDailyForecast.innerHTML = "Saturday";
   fourthDailyForecast.innerHTML = "Sunday";
   fifthDailyForecast.innerHTML = "Monday";
-
   dates.forEach(addDate);
 }
+let searchForm = document.querySelector("form");
+let locationBtn = document.querySelector("#location-btn");
+let currently = new Date();
+let h2 = document.querySelector("h2");
+let hourlyButton = document.querySelector("#hourly-btn");
 let dates = document.querySelectorAll("p.date");
 let dailyButton = document.querySelector("#daily-btn");
+h2.innerHTML = formatDate(currently);
+searchForm.addEventListener("submit", handleSubmit);
+locationBtn.addEventListener("click", getPosition);
+hourlyButton.addEventListener("click", changeToHourly);
 dailyButton.addEventListener("click", changeToDaily);
 dates.forEach(addDate);
 
