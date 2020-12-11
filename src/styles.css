@@ -107,6 +107,8 @@ h5 {
   font-size: 14px;
   font-weight: 500;
   margin: 0 auto;
+  max-width: 650px;
+  min-width: 650px;
   position: relative;
   bottom: -50px;
   text-align: center;
