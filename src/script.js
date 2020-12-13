@@ -12,7 +12,6 @@ function formatDate(date) {
     "Fri",
     "Sat"
 ];  
-  
   let currentDay = days[date.getDay()];
   let currentMonth = months[date.getMonth()];
   let currentDate = date.getDate();
