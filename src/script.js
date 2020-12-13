@@ -1,6 +1,34 @@
 // Default city
 searchCity("barcelona");
 
+// Current Date
+function formatDate(date) {
+  let days = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+];  
+  
+  let currentDay = days[date.getDay()];
+  let currentMonth = months[date.getMonth()];
+  let currentDate = date.getDate();
+  let hour = date.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minuts = date.getMinutes();
+  if (minuts < 10) {
+    minuts = `0${minuts}`;
+  }
+  let time = `${hour}:${minuts}`;
+  let formattedDate = `${currentDay} ${currentMonth} ${currentDate}, ${time}`;
+    return formattedDate;
+}
+
 // Display current city, country and weather conditions 
 function displayWeather(response) {
   document.querySelector("#current-city").innerHTML = response.data.name;
@@ -12,40 +40,8 @@ function displayWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed)  ;
   document.querySelector("#max-temp").innerHTML = Math.round(response.data.main.temp_max);
   document.querySelector("#min-temp").innerHTML = Math.round(response.data.main.temp_min);
-  if (response.data.weather[0].main === "Clear") {
-    document.querySelector("#icon").setAttribute("src", "media/sun.gif");
-  } else if (response.data.weather[0].main === "Drizzle" ||
-    response.data.weather[0].main === "Mist" || 
-    response.data.weather[0].main === "Smoke" ||
-    response.data.weather[0].main === "Haze") {
-    document.querySelector("#icon").setAttribute("src", "media/cloud.gif");
-  } else if (response.data.weather[0].main === "Clouds") {
-    document.querySelector("#icon").setAttribute("src", "media/sunCloud.gif");
-  } else if (response.data.weather[0].main === "Thunderstorm") {
-    document.querySelector("#icon").setAttribute("src", "media/thunder.png");
-  } else if (response.data.weather[0].main === "Rain") {
-    document.querySelector("#icon").setAttribute("src", "media/rain.gif");
-  } else if (response.data.weather[0].main === "Snow") {
-    document.querySelector("#icon").setAttribute("src", "media/snow.gif");
-  }
-}
-
-
-// Display daily forecast
-function displayDailyForecast(response) {
- let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = null;
-  let forecast = null;
-  for (let index = 6; index < 40; index += 8) {
-    forecast = response.data.list[index];
-    let forecastDay = new Date(forecast.dt * 1000);
-    forecastElement.innerHTML += 
-    `<div class="col">
-    <h5 id="day-one">${days[forecastDay.getDay()]}</h5>
-    <img src="media/cloud.gif" alt="Cloudy" class="forecast-icon" />
-    <p class="degrees"><strong> ${Math.round(forecast.main.temp_max)}ºC </strong>| ${Math.round(forecast.main.temp_min)}ºC</p>
-        </div>`;
-  }
+  document.querySelector("#icon").setAttribute("src", `media/${response.data.weather[0].icon}.png`);
+  
 }
 
 // Search for a city
@@ -77,34 +73,38 @@ function getPosition(event) {
   navigator.geolocation.getCurrentPosition(defineLocation);
 }
 
-// Current Date
-function formatDate(date) {
-  let days = [
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat"
-];  
-  
-  let currentDay = days[date.getDay()];
-  let currentMonth = months[date.getMonth()];
-  let currentDate = date.getDate();
-  let hour = date.getHours();
-  if (hour < 10) {
-    hour = `0${hour}`;
+// Display daily forecast
+function displayDailyForecast(response) {
+ let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+  for (let index = 4; index < 40; index += 8) {
+    forecast = response.data.list[index];
+    let forecastDay = new Date(forecast.dt * 1000);
+    forecastElement.innerHTML += 
+    `<div class="col">
+    <h5 id="day-one">${days[forecastDay.getDay()]}</h5>
+    <img src=media/${forecast.weather[0].icon}.png alt="Forecast Icon" id="forecast-icon" />
+    <p class="degrees"><strong> ${Math.round(forecast.main.temp_max)}ºC </strong>| ${Math.round(forecast.main.temp_min)}ºC</p>
+    </div>`;
   }
-  let minuts = date.getMinutes();
-  if (minuts < 10) {
-    minuts = `0${minuts}`;
-  }
-  let time = `${hour}:${minuts}`;
-  let formattedDate = `${currentDay} ${currentMonth} ${currentDate}, ${time}`;
-    return formattedDate;
 }
 
+// Display daily forecast
+// function displayHourlyForecast(response) {
+//  let forecastElement = document.querySelector("#forecast");
+//   forecastElement.innerHTML = null;
+//   let forecast = null;
+//   for (let index = 0; index < 6; index ++) {
+//     forecast = response.data.list[index];
+//     forecastElement.innerHTML += 
+//     `<div class="col">
+//     <h5 id="day-one">${days[forecastDay.getDay()]}</h5>
+//     <img src=media/${forecast.weather[0].icon}.png alt="Forecast Icon" id="forecast-icon" />
+//     <p class="degrees"><strong> ${Math.round(forecast.main.temp_max)}ºC </strong>| ${Math.round(forecast.main.temp_min)}ºC</p>
+//     </div>`;
+//   }
+// }
 // Change to hourly forecast
 // function removeDate(allDates) {
 //   allDates.innerHTML = null;
@@ -172,12 +172,12 @@ let months = [
 ];  
 // let hourlyButton = document.querySelector("#hourly-btn");
 // let dates = document.querySelectorAll("p.date");
-// let dailyButton = document.querySelector("#daily-btn");
+let dailyButton = document.querySelector("#daily-btn");
 h2.innerHTML = formatDate(currently);
 searchForm.addEventListener("submit", handleSubmit);
 locationBtn.addEventListener("click", getPosition);
 //hourlyButton.addEventListener("click", changeToHourly);
-//dailyButton.addEventListener("click", changeToDaily);
+dailyButton.addEventListener("click", displayDailyForecast());
 //dates.forEach(addDate);
 
 
