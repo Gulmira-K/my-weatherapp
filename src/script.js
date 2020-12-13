@@ -30,11 +30,32 @@ function displayWeather(response) {
   }
 }
 
+
+// Display daily forecast
+function displayDailyForecast(response) {
+ let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+  for (let index = 6; index < 40; index += 8) {
+    forecast = response.data.list[index];
+    let forecastDay = new Date(forecast.dt * 1000);
+    forecastElement.innerHTML += 
+    `<div class="col">
+    <h5 id="day-one">${days[forecastDay.getDay()]}</h5>
+    <img src="media/cloud.gif" alt="Cloudy" class="forecast-icon" />
+    <p class="degrees"><strong> ${Math.round(forecast.main.temp_max)}ºC </strong>| ${Math.round(forecast.main.temp_min)}ºC</p>
+        </div>`;
+  }
+}
+
 // Search for a city
 function searchCity(city) {
   let apiKey = "3d2ad3624a972543a23fa163db444044";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
+  
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayDailyForecast);
 }
 function handleSubmit(event) {
   event.preventDefault();
@@ -67,7 +88,75 @@ function formatDate(date) {
     "Fri",
     "Sat"
 ];  
-  let months = [
+  
+  let currentDay = days[date.getDay()];
+  let currentMonth = months[date.getMonth()];
+  let currentDate = date.getDate();
+  let hour = date.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minuts = date.getMinutes();
+  if (minuts < 10) {
+    minuts = `0${minuts}`;
+  }
+  let time = `${hour}:${minuts}`;
+  let formattedDate = `${currentDay} ${currentMonth} ${currentDate}, ${time}`;
+    return formattedDate;
+}
+
+// Change to hourly forecast
+// function removeDate(allDates) {
+//   allDates.innerHTML = null;
+// } 
+// function changeToHourly() {
+//   let firstHourlyForecast = document.querySelector("#day-one");
+//   let secondHourlyForecast = document.querySelector("#day-two");
+//   let thirdHourlyForecast = document.querySelector("#day-three");
+//   let fourthHourlyForecast = document.querySelector("#day-four");
+//   let fifthHourlyForecast = document.querySelector("#day-five");
+//   let dates = document.querySelectorAll("p.date");
+//   let dailyBtn = document.querySelector("#daily-btn");
+//   dailyBtn.classList.remove("active", "focus");
+//   firstHourlyForecast.innerHTML = "17:00";
+//   secondHourlyForecast.innerHTML = "18:00";
+//   thirdHourlyForecast.innerHTML = "19:00";
+//   fourthHourlyForecast.innerHTML = "20:00";
+//   fifthHourlyForecast.innerHTML = "21:00";
+//   dates.forEach(removeDate);
+// }
+
+// // Change to daily forecast
+// function addDate(allDates) {
+//   allDates.innerHTML = "Nov 25";
+// } 
+// function changeToDaily() {
+//   let firstDailyForecast = document.querySelector("#day-one");
+//   let secondDailyForecast = document.querySelector("#day-two");
+//   let thirdDailyForecast = document.querySelector("#day-three");
+//   let fourthDailyForecast = document.querySelector("#day-four");
+//   let fifthDailyForecast = document.querySelector("#day-five");
+//   firstDailyForecast.innerHTML = "Thursday";
+//   secondDailyForecast.innerHTML = "Friday";
+//   thirdDailyForecast.innerHTML = "Saturday";
+//   fourthDailyForecast.innerHTML = "Sunday";
+//   fifthDailyForecast.innerHTML = "Monday";
+//   dates.forEach(addDate);
+// }
+let searchForm = document.querySelector("form");
+let locationBtn = document.querySelector("#location-btn");
+let currently = new Date();
+let h2 = document.querySelector("h2");
+let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+]; 
+let months = [
     "Jan",
     "Feb",
     "Mar",
@@ -81,73 +170,14 @@ function formatDate(date) {
     "Nov",
     "Dec"
 ];  
-  let currentDay = days[date.getDay()];
-  let currentMonth = months[date.getMonth()];
-  let currentDate = date.getDate();
-  let hour = date.getHours();
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-  let minuts = date.getMinutes();
-  if (minuts < 10) {
-    minuts = `0${minuts}`;
-  }
-  
-  let time = `${hour}:${minuts}`;
-  let formattedDate = `${currentDay} ${currentMonth} ${currentDate}, ${time}`;
-    return formattedDate;
-}
-
-// Change to hourly forecast
-function removeDate(allDates) {
-  allDates.innerHTML = null;
-} 
-function changeToHourly() {
-  let firstHourlyForecast = document.querySelector("#day-one");
-  let secondHourlyForecast = document.querySelector("#day-two");
-  let thirdHourlyForecast = document.querySelector("#day-three");
-  let fourthHourlyForecast = document.querySelector("#day-four");
-  let fifthHourlyForecast = document.querySelector("#day-five");
-  let dates = document.querySelectorAll("p.date");
-  let dailyBtn = document.querySelector("#daily-btn");
-  dailyBtn.classList.remove("active", "focus");
-  firstHourlyForecast.innerHTML = "17:00";
-  secondHourlyForecast.innerHTML = "18:00";
-  thirdHourlyForecast.innerHTML = "19:00";
-  fourthHourlyForecast.innerHTML = "20:00";
-  fifthHourlyForecast.innerHTML = "21:00";
-  dates.forEach(removeDate);
-}
-
-// Change to daily forecast
-function addDate(allDates) {
-  allDates.innerHTML = "Nov 25";
-} 
-function changeToDaily() {
-  let firstDailyForecast = document.querySelector("#day-one");
-  let secondDailyForecast = document.querySelector("#day-two");
-  let thirdDailyForecast = document.querySelector("#day-three");
-  let fourthDailyForecast = document.querySelector("#day-four");
-  let fifthDailyForecast = document.querySelector("#day-five");
-  firstDailyForecast.innerHTML = "Thursday";
-  secondDailyForecast.innerHTML = "Friday";
-  thirdDailyForecast.innerHTML = "Saturday";
-  fourthDailyForecast.innerHTML = "Sunday";
-  fifthDailyForecast.innerHTML = "Monday";
-  dates.forEach(addDate);
-}
-let searchForm = document.querySelector("form");
-let locationBtn = document.querySelector("#location-btn");
-let currently = new Date();
-let h2 = document.querySelector("h2");
-let hourlyButton = document.querySelector("#hourly-btn");
-let dates = document.querySelectorAll("p.date");
-let dailyButton = document.querySelector("#daily-btn");
+// let hourlyButton = document.querySelector("#hourly-btn");
+// let dates = document.querySelectorAll("p.date");
+// let dailyButton = document.querySelector("#daily-btn");
 h2.innerHTML = formatDate(currently);
 searchForm.addEventListener("submit", handleSubmit);
 locationBtn.addEventListener("click", getPosition);
-hourlyButton.addEventListener("click", changeToHourly);
-dailyButton.addEventListener("click", changeToDaily);
-dates.forEach(addDate);
+//hourlyButton.addEventListener("click", changeToHourly);
+//dailyButton.addEventListener("click", changeToDaily);
+//dates.forEach(addDate);
 
 
