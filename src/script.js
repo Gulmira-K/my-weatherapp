@@ -40,7 +40,6 @@ function displayWeather(response) {
   document.querySelector("#max-temp").innerHTML = Math.round(response.data.main.temp_max);
   document.querySelector("#min-temp").innerHTML = Math.round(response.data.main.temp_min);
   document.querySelector("#icon").setAttribute("src", `media/${response.data.weather[0].icon}.png`);
-  
 }
 
 // Search for a city
@@ -50,7 +49,8 @@ function searchCity(city) {
   axios.get(apiUrl).then(displayWeather);
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayHourlyForecast);
-  }
+}
+
 function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
@@ -132,6 +132,8 @@ let dates = document.querySelectorAll("p.date");
 h2.innerHTML = formatDate(currently);
 searchForm.addEventListener("submit", handleSubmit);
 locationBtn.addEventListener("click", getPosition);
+
+// Change background image
 
 
 
