@@ -133,7 +133,7 @@ h2.innerHTML = formatDate(currently);
 searchForm.addEventListener("submit", handleSubmit);
 locationBtn.addEventListener("click", getPosition);
 
-// Change background image
+
 
 
 
